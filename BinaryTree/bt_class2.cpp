@@ -193,11 +193,8 @@ int main () {
     for(int i=0; i < rightView.size(); i++) {
         cout << rightView[i] << " ";
     }
-    cout << endl;
-
+    cout << endl;    
     printTopView(root);
-
     cout << endl;
-
     printBottomView(root);
 }
