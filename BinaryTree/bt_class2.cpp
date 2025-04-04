@@ -169,6 +169,60 @@ void printBottomView(Node* root) {
         cout << i.second << " ";
     }
 }
+void printLeftBoundary(Node* root) {
+    if(root == NULL) {
+        return;
+    }
+    if(root->left == NULL && root->right == NULL) {
+        return;
+    }
+    cout << root->data << " ";
+
+    if(root->left != NULL) {
+        printLeftBoundary(root->left);
+    }
+    else{
+        printLeftBoundary(root->right);
+    }
+}
+void printRightBoundary(Node* root) {
+    if(root == NULL) {
+        return;
+    }
+    if(root->left == NULL && root->right == NULL) {
+        return;
+    }
+    if(root->right!= NULL) {
+        printRightBoundary(root->right);
+    }
+    else{
+        printRightBoundary(root->left);
+    }
+    cout << root->data << " ";
+}
+void printLeafBoundary(Node* root) {
+    if(root == NULL) {
+        return;
+    }
+    if(root->left == NULL && root->right == NULL) {
+        cout << root->data << " ";
+    }
+    printLeafBoundary(root->left);
+    printLeafBoundary(root->right);
+}
+void boundaryTraversal(Node* root) {
+    if(root == NULL) {
+        return;
+    }
+    cout << root->data << " ";
+    printLeftBoundary(root->left);
+    printLeafBoundary(root->left);
+    printLeafBoundary(root->right);
+    printRightBoundary(root->right);
+
+}
+
+
 
 int main () {
     Node* root = createTree();
@@ -196,4 +250,7 @@ int main () {
     printTopView(root);
     cout << endl;
     printBottomView(root);
+    cout << endl;
+    cout << "Printing Boundary Elements: " << endl;
+    boundaryTraversal(root);
 }
