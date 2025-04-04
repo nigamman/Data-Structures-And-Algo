@@ -1,5 +1,6 @@
 #include <iostream>
 #include <queue>
+#include <map>
 using namespace std;
 
 class Node {
@@ -111,6 +112,65 @@ void printRightView(Node* root, int level, vector<int> &rightView) {
     printRightView(root->right, level+1, rightView);
     printRightView(root->left, level+1, rightView);
 }
+
+void printTopView(Node* root) {
+    map<int,int> hdToNodeMap;
+    queue <pair<Node*, int>> q;
+    q.push(make_pair(root,0));
+
+    while(!q.empty()) {
+        pair<Node*, int> temp = q.front();
+        q.pop();
+
+        Node* frontNode = temp.first;
+        int hd = temp.second;
+
+        //if there is no entry for horizontal distance(hd) in map, then create a new story
+        if(hdToNodeMap.find(hd) == hdToNodeMap.end()) {
+            hdToNodeMap[hd] = frontNode->data;
+        }
+        //checking the child node
+        if(frontNode->left != NULL) {
+            q.push(make_pair(frontNode->left, hd-1));
+        }
+        if(frontNode->right != NULL) {
+            q.push(make_pair(frontNode->right, hd+1));
+        }
+    }
+    cout << "Printing Top View: " << endl;
+    for(auto i: hdToNodeMap) {
+        cout << i.second << " ";
+    }
+}
+void printBottomView(Node* root) {
+    map<int,int> hdToNodeMap;
+    queue <pair<Node*, int>> q;
+    q.push(make_pair(root,0));
+
+    while(!q.empty()) {
+        pair<Node*, int> temp = q.front();
+        q.pop();
+
+        Node* frontNode = temp.first;
+        int hd = temp.second;
+
+        //overwrite answer so that the deeper nodes can be stored
+        hdToNodeMap[hd] = frontNode->data;
+
+        //checking the child node
+        if(frontNode->left != NULL) {
+            q.push(make_pair(frontNode->left, hd-1));
+        }
+        if(frontNode->right != NULL) {
+            q.push(make_pair(frontNode->right, hd+1));
+        }
+    }
+    cout << "Printing Bottom View: " << endl;
+    for(auto i: hdToNodeMap) {
+        cout << i.second << " ";
+    }
+}
+
 int main () {
     Node* root = createTree();
 
@@ -126,14 +186,18 @@ int main () {
         cout << leftView[i] << " ";
     }
     cout << endl;
-    
+
     vector <int> rightView;
     printRightView(root, 0, rightView);
     cout << "Printing Right View: " << endl;
     for(int i=0; i < rightView.size(); i++) {
         cout << rightView[i] << " ";
     }
+    cout << endl;
 
-    
+    printTopView(root);
 
+    cout << endl;
+
+    printBottomView(root);
 }
