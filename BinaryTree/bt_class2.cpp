@@ -112,7 +112,6 @@ void printRightView(Node* root, int level, vector<int> &rightView) {
     printRightView(root->right, level+1, rightView);
     printRightView(root->left, level+1, rightView);
 }
-
 void printTopView(Node* root) {
     map<int,int> hdToNodeMap;
     queue <pair<Node*, int>> q;
