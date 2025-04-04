@@ -1,1 +1,1 @@
-learning data structures and algorithms and solving leetcode questions.
+learning data structures and algorithms and solving questions on LeetCode.
