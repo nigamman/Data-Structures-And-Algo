@@ -122,6 +122,40 @@ bool searchInBST(Node* root, int target) {
     //so we use OR operator because either of left or right is true it's return true
     return leftAns || rightAns;
 }
+Node* deleteNode(Node* root, int key) {
+    if(root == NULL) return NULL;
+
+    if(key < root->data) {
+        root->left = deleteNode(root->left, key);
+    }
+    else if(key > root->data) {
+        root->right = deleteNode(root->right, key);
+    }
+    else {
+        // Node to delete found
+        // Case 1: No child
+        if(root->left == NULL && root->right == NULL) {
+            delete root;
+            return NULL;
+        }
+        // Case 2: One child
+        if(root->left == NULL) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        if(root->right == NULL) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        // Case 3: Two children
+        Node* mini = minValue(root->right);
+        root->data = mini->data;
+        root->right = deleteNode(root->right, mini->data);
+    }
+    return root;
+}
 int main() {
 
     Node* root = NULL;
@@ -153,19 +187,34 @@ int main() {
         cout << "MAX Element in the tree: " << maxNode->data << endl;
     }
 
-    int tar;
-    cout << "Enter the target: " << endl;
-    cin >> tar;
+    // int tar;
+    // cout << "Enter the target: " << endl;
+    // cin >> tar;
 
-    while(tar != -1) {
-        bool ans = searchInBST(root, tar);
-        if(ans == true) {
-            cout << "Found" << endl;
-        }
-        else {
-            cout << "Not Found" << endl;
-        }
-        cout << "Enter the targett: " << endl;
-        cin >> tar;
-    } 
+    // while(tar != -1) {
+    //     bool ans = searchInBST(root, tar);
+    //     if(ans == true) {
+    //         cout << "Found" << endl;
+    //     }
+    //     else {
+    //         cout << "Not Found" << endl;
+    //     }
+    //     cout << "Enter the targett: " << endl;
+    //     cin >> tar;
+    // } 
+
+    int target;
+    cout << "Enter the value of target: " << endl;
+    cin >> target;
+    
+    while(target != -1) {
+        root = deleteNode(root, target);
+        cout << endl << "Printing Level Order Traversal: " << endl;
+        levelOrderBST(root);
+
+        cout << "Enter the target: " << endl;
+        cin >> target;
+    }
+
+
 }
