@@ -86,14 +86,7 @@ void levelOrderTraversal(Node* root) {
         Node* front = q.front();
         q.pop();
 
-        if(front == NULL) {
-            cout << endl;
-            if(!q.empty()) {
-               q.push(NULL); 
-            }     
-        }
-        //jahan pr front null nhi hoga
-        else{
+        if(front != NULL) {
             cout << front->data << " ";
 
             if(front->left != NULL) {
@@ -102,6 +95,14 @@ void levelOrderTraversal(Node* root) {
             if(front->right != NULL) {
                 q.push(front->right);
             }
+        }
+    
+        //jahan pr front null nhi hoga
+        else{
+            cout << endl;
+            if(!q.empty()) {
+               q.push(NULL); 
+            }     
         }
     }
 
