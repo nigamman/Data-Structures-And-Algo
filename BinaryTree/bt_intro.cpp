@@ -106,7 +106,7 @@ void levelOrderTraversal(Node* root) {
         }
     }
 
-     if(root == NULL) {
+    if(root == NULL) {
         return;
     }
 
