@@ -19,5 +19,26 @@ int main() {
     mapping.insert(p);
     mapping.insert(q);
     mapping.insert(r);
+    mapping["babbar"] = 51;
 
+    cout << "Size of the map: " << mapping.size() << endl;
+
+    //access
+    cout << mapping.at("arun") << endl;
+    cout << mapping["pointers"] << endl;
+
+    //searching
+    cout << mapping.count("hashmap") << endl;
+
+    if(mapping.find("pointrs") != mapping.end()) {
+        cout << "Found" << endl;
+    }
+    else {
+        cout << "Not found" << endl;
+    }
+    cout << "Size of map: " << mapping.size() << endl;
+    cout << mapping["kumar"] << endl;
+    cout << "Size of map: " << mapping.size() << endl;
+    
+    return 0;
 }
