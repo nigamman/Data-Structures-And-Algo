@@ -2,7 +2,7 @@
 #include<unordered_map>
 using namespace std;
 
-int countChar(unordered_map<char,int> &mapping, string str) {
+void countChar(unordered_map<char,int> &mapping, string str) {
     for(int i=0; i<str.length(); i++) {
         char ch = str[i];
         mapping[ch]++;
