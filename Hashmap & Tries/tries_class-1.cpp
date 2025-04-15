@@ -64,6 +64,25 @@ bool searchWord(TrieNode* root, string word) {
     bool recursionKaAns = searchWord(child,word.substr(1));
     return recursionKaAns;
 }
+void deleteWord(TrieNode* root, string word) {
+    if(word.length() == 0) {
+        root->isTerminal = false;
+        return;
+    }
+
+    char ch = word[0];
+    int index = ch - 'a';
+    TrieNode* child;
+
+    if(root->children[index] != NULL) {
+        child = root->children[index];
+    }
+    else{
+        //not present
+        return;
+    }
+    deleteWord(child, word.substr(1));
+}
 int main () {
     TrieNode* root = new TrieNode('-');
 
@@ -80,11 +99,19 @@ int main () {
 
     cout << "Insertion Done!" << endl;
 
-    if(searchWord(root, "led")) {
+    if(searchWord(root, "cat")) {
         cout << "Found" << endl;
     }
     else {
         cout << "Not Found" << endl;
     }
 
+    deleteWord(root, "cat");
+
+    if(searchWord(root, "cat")) {
+        cout << "Found" << endl;
+    }
+    else {
+        cout << "Not Found" << endl;
+    }
 }
