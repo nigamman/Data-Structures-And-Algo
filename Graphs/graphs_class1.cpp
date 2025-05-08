@@ -1,13 +1,16 @@
 #include <iostream>
 #include <unordered_map>
 #include <list>
+#include <utility>
+#include <queue>
 using namespace std;
 
+template <typename t>
 class Graph {
     public:
-        unordered_map<int,list<int>> adjList;
+        unordered_map<t,list<t>> adjList;
 
-        void addEdge(int u, int v, bool direction) {
+        void addEdge(t u, t v, bool direction) {
             //direction -> 0 -> undirected
             //direction -> 1 -> directed
             if(direction == 1) {
@@ -30,12 +33,42 @@ class Graph {
                 cout << "}" << endl;
             }
         }
+        void bfsTraversal(t src) {
+            //adjList already dataList m hain visited
+            unordered_map<t, bool> vis;
+            //queue
+            queue<t> q;
+
+            //initial state 
+            q.push(src);
+            vis[src] = true;
+
+            cout << "\nBFS Traversal: ";
+            while(!q.empty()) {
+                t frontNode = q.front();
+                cout << frontNode << " ";
+                q.pop();
+
+                //go to neighbour
+                for (auto neighbour : adjList[frontNode]) {
+                    if (!vis[neighbour]) {
+                        q.push(neighbour);
+                        vis[neighbour] = true;
+                    }
+                }
+            }
+            cout << endl;
+        } 
 };
 
 int main() {
-    Graph g;
-    g.addEdge(0,1,1);
-    g.addEdge(1,2,1);
-    g.addEdge(1,3,1);
-    g.addEdge(2,4,1);
+    Graph<char> g;
+    g.addEdge('a','b',0);
+    g.addEdge('a','c',0);
+    g.addEdge('b','c',0);
+    g.addEdge('c','d',0);
+    g.addEdge('c','e',0);
+    g.addEdge('e','f',0);
+
+    g.bfsTraversal('a');
 }
