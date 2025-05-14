@@ -58,6 +58,21 @@ class Graph {
                 }
             }
             cout << endl;
+        }
+        void dfsTraversal(t src, unordered_map<t,bool> &visited) {
+
+            //mark the node visited
+            visited[src] = true;
+
+            //print node
+            cout << src << " ";
+
+            //move to neighbours of node
+            for(auto nbr: adjList[src]) {
+                if(!visited[nbr]) {
+                    dfsTraversal(nbr, visited);
+                }
+            }
         } 
 };
 
@@ -71,4 +86,8 @@ int main() {
     g.addEdge('e','f',0);
 
     g.bfsTraversal('a');
+
+    cout << "DFS Traversal: " ;
+    unordered_map<char, bool> visited;
+    g.dfsTraversal('a', visited);
 }
