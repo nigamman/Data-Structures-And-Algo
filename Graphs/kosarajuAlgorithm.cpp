@@ -100,5 +100,5 @@ int main() {
     int ans = g.kosarajuAlgo(8);
     cout << "SCC Count: " << ans << endl;
 
-    return 0;
+    
 }
